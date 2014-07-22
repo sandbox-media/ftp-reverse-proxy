@@ -4,5 +4,6 @@ After=docker.service
 Requires=docker.service
 
 [Service]
+User=core
 ExecStart=/bin/bash -c '/usr/bin/docker start -a ftp-reverse-proxy || /usr/bin/docker run --name=ftp-reverse-proxy quay.io/democracyworks/ftp-reverse-proxy'
 ExecStop=/usr/bin/docker stop ftp-reverse-proxy
