@@ -4,6 +4,6 @@ dest       = "/etc/haproxy/haproxy.cfg"
 owner      = "root"
 group      = "root"
 mode       = "0644"
-keys       = [ "/ftpreverseproxy" ]
+keys       = [ "/services/ftp/reverse-proxy" ]
 check_cmd  =  "/usr/sbin/haproxy -c -q -f {{ .src }}"
 reload_cmd = "/usr/sbin/haproxy -f {{ .src }} -p /var/run/haproxy.pid -sf $(</var/run/haproxy.pid)"

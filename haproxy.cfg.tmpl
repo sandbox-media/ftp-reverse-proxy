@@ -17,5 +17,5 @@ listen ftp :21,:57649-57700
     mode tcp
     option tcp-check
     tcp-check expect string 220
-    {{ range $i, $server := .ftpreverseproxy_host }}{{ if $i }}server {{ $server.Value }} {{ $server.Value }} check port 21 inter 2s backup{{ else }}server {{ $server.Value }} {{ $server.Value }} check port 21 inter 2s{{ end }}
+    {{ range $i, $server := .services_ftp_reverse-proxy_host }}{{ if $i }}server {{ $server.Value }} {{ $server.Value }} check port 21 inter 2s backup{{ else }}server {{ $server.Value }} {{ $server.Value }} check port 21 inter 2s{{ end }}
     {{ end }}
