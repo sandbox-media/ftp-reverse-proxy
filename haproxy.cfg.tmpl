@@ -1,0 +1,21 @@
+global
+    maxconn 256
+
+defaults
+    timeout connect 10000ms
+    timeout client 2000ms
+    timeout server 2000ms
+
+listen stats :80
+    mode http
+    stats enable
+    stats hide-version
+    stats realm haproxy\ stats
+    stats uri /
+
+listen ftp :21,:57649-57700
+    mode tcp
+    option tcp-check
+    tcp-check expect string 220
+    {{ range $i, $server := .ftpreverseproxy_host }}{{ if $i }}server {{ $server.Value }} {{ $server.Value }} check port 21 inter 2s backup{{ else }}server {{ $server.Value }} {{ $server.Value }} check port 21 inter 2s{{ end }}
+    {{ end }}

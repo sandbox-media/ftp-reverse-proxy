@@ -1,0 +1,10 @@
+[Unit]
+Description=Announce FTP reverse proxy service
+BindsTo=ftp-reverse-proxy.service
+
+[Service]
+ExecStart=/bin/sh -c "while true; do etcdctl set /services/ftp/reverse-proxy '{ \"host\": \"%H\", \"port\": 21 }' --ttl 60; sleep 45; done"
+ExecStop=/usr/bin/etcdctl rm /services/ftp/reverse-proxy
+
+[X-Fleet]
+X-ConditionMachineOf=ftp-reverse-proxy.service
